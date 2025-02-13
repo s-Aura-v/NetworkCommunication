@@ -7,9 +7,22 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Client {
+
+    static void setup() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the message you would like to send: ");
+        TCP.msg = scanner.nextLine();
+        System.out.println("Enter the amount of bytes each packet should send: ");
+        TCP.msgSize = scanner.nextInt();
+    }
+
+    
     public static void main(String[] args) {
+        setup();
         String host = "localhost";
         int echoServicePortNumber = 26880;
 
@@ -39,7 +52,10 @@ public class Client {
 
             while ((userInput = stdIn.readLine()) != null) {
                 out.println(userInput);
+                userInput = stdIn.readLine();
+                byte[] decoded = TCP.xorDecode(userInput.getBytes(), TCP.key);
                 System.out.println("echo: " + in.readLine());
+                System.out.println(Arrays.toString(decoded));
             }
 
             out.close();
@@ -52,13 +68,4 @@ public class Client {
             ex.printStackTrace();
         }
     }
-
-    static byte[] createByteBuffer(int size) {
-        return new byte[size];
-    }
-
-    static byte[] convertToByteArray(String message) {
-        return message.getBytes();
-    }
-
 }

@@ -4,15 +4,27 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class TCP {
-    byte[] sendBytes(int size) {
-        return new byte[size];
-    }
+    /**
+     * Used as a key for XOR shifting.
+     */
+    public static long key = 214839961L;
+
+    /**
+     * The byte size of the message sent per packet
+     * [8, 64, 256, 512] are the sizes we are looking at.
+     * [8] is default.
+     */
+    public static int msgSize = 8;
+
+    /**
+     * The message that will be divided into bytes
+     */
+    public static String msg = "initials";
 
     public static void main(String[] args) {
         // Shared none zero initial key
-        long key = 123456789L;
 
-        String message = "Hello, World! 912 42 18 2 542 1 z Z . 🤷‍♀️";
+        String message = "helloasd";
         byte[] messageBytes = message.getBytes();
 
         // Encrypt the message

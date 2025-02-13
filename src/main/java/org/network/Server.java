@@ -1,18 +1,16 @@
 package org.network;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class Server {
     static final int PORT = 26880;
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
-
+//            DataOutputStream
             for (;;) {
                 Socket client = serverSocket.accept();
 
@@ -21,20 +19,11 @@ public class Server {
                         new BufferedReader(new InputStreamReader(client.getInputStream()));
 
                 String cmd = in.readLine();
+                System.out.println(cmd);
 
-                String reply = "<html>\n" +
-                        "<head><title>Testing</title></head>\n" +
-                        "<body><h1>Hello World!</h1></body>\n" +
-                        "Got request:<br>\n " +
-                        cmd +
-                        "\n</html>\n";
-
-                int len = reply.length();
-
-                out.println("HTTP/1.0 200 OK");
-                out.println("Content-Length: " + len);
-                out.println("Content-Type: text/html\n");
-                out.println(reply);
+                byte[] msg = cmd.getBytes();
+                byte[] encodedMsg = TCP.xorEncode(msg, TCP.key);
+                out.println(Arrays.toString(encodedMsg));
 
                 out.close();
                 in.close();
@@ -46,5 +35,4 @@ public class Server {
             System.exit(-1);
         }
     }
-
 }
