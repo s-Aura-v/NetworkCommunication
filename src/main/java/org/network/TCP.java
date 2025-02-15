@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class TCP {
     /**
      * Used as a key for XOR shifting.
+     * Keys temporarily public.
      */
     public static long key = 214839961L;
 
@@ -19,7 +20,13 @@ public class TCP {
     /**
      * The message that will be divided into bytes
      */
-    public static String msg = "initials";
+    public static String msg = "initialsinitials notintitals";
+
+    /**
+     * The amount of times the message should be sent.
+     */
+    public static int iterations = 3;
+
 
     public static void main(String[] args) {
         // Shared none zero initial key
