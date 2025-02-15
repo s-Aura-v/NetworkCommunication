@@ -1,6 +1,5 @@
 package org.network;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,38 +10,45 @@ public class Server {
 
     public static void main(String[] args) {
         System.out.println("Waiting for Connection");
-        try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
-            for (; ; ) {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            for (;;) {
                 Socket client = serverSocket.accept();
                 System.out.println("Server Connected");
+                client.setSoTimeout(30000); // Set a 30-second timeout
 
+                try (DataOutputStream out = new DataOutputStream(client.getOutputStream());
+                     DataInputStream in = new DataInputStream(client.getInputStream())) {
 
-                DataOutputStream out = new DataOutputStream(client.getOutputStream());
-                DataInputStream in = new DataInputStream(client.getInputStream());
+                    for (;;) {
+                        try {
+                            int length = in.readInt();
+                            System.out.println("Received length: " + length);
 
-                for (int i = 0; i < 3; i++) {
-                    int length = in.readInt();
-                    byte[] byteArray = new byte[length];
-                    in.readFully(byteArray);
-                    out.writeInt(byteArray.length);
-                    out.write(byteArray);
-                    System.out.println(Arrays.toString(byteArray));
+                            byte[] byteArray = new byte[length];
+                            in.readFully(byteArray);
+
+                            out.writeInt(byteArray.length);
+                            out.write(byteArray);
+                            out.flush();
+
+                            System.out.println("Received byte array: " + Arrays.toString(byteArray));
+                        } catch (EOFException e) {
+                            System.out.println("Client disconnected.");
+                            break;
+                        } catch (IOException e) {
+                            System.err.println("Error reading from client: " + e.getMessage());
+                            break;
+                        }
+                    }
+                } catch (IOException e) {
+                    System.err.println("Error handling client connection: " + e.getMessage());
+                } finally {
+                    try {
+                        client.close();
+                    } catch (IOException e) {
+                        System.err.println("Error closing client socket: " + e.getMessage());
+                    }
                 }
-
-
-
-
-
-//                System.out.println(cmd);
-//
-//                byte[] msg = cmd.getBytes();
-//                byte[] encodedMsg = TCP.xorEncode(msg, TCP.key);
-//                out.write(encodedMsg);
-
-//                out.close();
-                in.close();
-                client.close();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
