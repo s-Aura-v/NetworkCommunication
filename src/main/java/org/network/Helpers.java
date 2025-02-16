@@ -1,9 +1,6 @@
 package org.network;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-
-public class TCP {
+public class Helpers {
     /**
      * Used as a key for XOR shifting.
      * Keys temporarily public.

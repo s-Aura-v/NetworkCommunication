@@ -1,17 +1,15 @@
 package org.network;
 
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Arrays;
+import java.net.*;
 
-public class Server {
+public class TCPServer {
     static final int PORT = 26880;
 
     public static void main(String[] args) {
         System.out.println("Waiting for Connection");
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            for (;;) {
+            for (; ; ) {
                 Socket client = serverSocket.accept();
                 System.out.println("Server Connected");
                 client.setSoTimeout(30000); // Set a 30-second timeout
@@ -19,19 +17,20 @@ public class Server {
                 try (DataOutputStream out = new DataOutputStream(client.getOutputStream());
                      DataInputStream in = new DataInputStream(client.getInputStream())) {
 
-                    for (;;) {
+                    for (; ; ) {
                         try {
                             int length = in.readInt();
-                            System.out.println("Received length: " + length);
 
                             byte[] byteArray = new byte[length];
                             in.readFully(byteArray);
+
+                            System.out.println("Decoded byte array: " + new String(Helpers.xorDecode(byteArray, Helpers.key)));
 
                             out.writeInt(byteArray.length);
                             out.write(byteArray);
                             out.flush();
 
-                            System.out.println("Received byte array: " + Arrays.toString(byteArray));
+
                         } catch (EOFException e) {
                             System.out.println("Client disconnected.");
                             break;
