@@ -3,9 +3,11 @@ package org.network;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Receives data from client and decodes it, before sending it back to client.
+ */
 public class TCPServer {
     static final int PORT = 26880;
-
     public static void main(String[] args) {
         System.out.println("Waiting for Connection");
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -30,7 +32,6 @@ public class TCPServer {
                             out.write(byteArray);
                             out.flush();
 
-
                         } catch (EOFException e) {
                             System.out.println("Client disconnected.");
                             break;
@@ -39,6 +40,8 @@ public class TCPServer {
                             break;
                         }
                     }
+                    out.close();
+                    in.close();
                 } catch (IOException e) {
                     System.err.println("Error handling client connection: " + e.getMessage());
                 } finally {

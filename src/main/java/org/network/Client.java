@@ -7,18 +7,35 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Client {
+    /**
+     * The server where the data will be sent to.
+     * Host: server url
+     * Port: port
+     */
     static String host = "localhost";
     static int echoServicePortNumber = 26880;
     static int udpServicePortNumber = 26881;
 
-    static ArrayList<String> packets = new ArrayList<>();
+    /**
+     * Data that is being sent to the server.
+     * String converted into bytes that is encrypted through an XOR operation.
+     */
     static ArrayList<byte[]> encryptedPackets = new ArrayList<>();
 
     /**
-     * Get the necessary information to set the program up
-     * MSG = message that you're going to send to the server
-     * MSG_SIZE = packet size
-     * ITERATIONS = number of packets to send
+     * Although I do not need this and encrypt the packets immediately, I want to keep it just as a good visualizer.
+     */
+    static ArrayList<String> packets = new ArrayList<>();
+
+
+    /**
+     * Get the necessary information for the program
+     * MSG = STRING message that will be sent to the server
+     * MSG_SIZE = packet size. amount of data that will be sent per packet.
+     * ITERATIONS = number of packets to send.
+     *          if iteration*msg_size < message length, then the message will be cut off.
+     *          else if iteration*msg_size > message length, then the program will break.
+     *
      * return @encryptedPackets - an ArrayList that stores encrypted message as a byte[] - will be sent to the server
      */
     static void setup() {
@@ -51,10 +68,9 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
-        setup();
-    }
-
+    /**
+     * Using Sockets (TCP), we send and receive packets to and from the server in a connection-based protocol.
+     */
     static void TCPConnection() {
         try (Socket echoSocket = new Socket(host, echoServicePortNumber);
              DataOutputStream out = new DataOutputStream(echoSocket.getOutputStream());
@@ -92,19 +108,28 @@ public class Client {
         }
     }
 
+    /**
+     * Using Datagrams, (UDP Connection), we send packets to and from the server through a connectionless protocol.
+     */
     static void UDPConnection() {
         try (DatagramSocket socket = new DatagramSocket(26881)) {
             InetAddress address = InetAddress.getByName(host);
             for (int i = 0; i < encryptedPackets.size(); i++) {
+                long sendTime = System.nanoTime();
                 DatagramPacket packet = new DatagramPacket(encryptedPackets.get(i), encryptedPackets.get(i).length, address, 26882);
                 socket.send(packet);
-                System.out.println("Datagram " + i + " sent.");
 
                 // Receive the response from the server
-//                byte[] buffer = new byte[1024];
-//                DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
-//                socket.receive(receivePacket); // Blocks until a response is received
+                byte[] buffer = new byte[Helpers.msgSize];
+                DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
+                socket.receive(receivePacket);
 
+                long receiveTime = System.nanoTime();
+                double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+
+                byte[] data = receivePacket.getData();
+                System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
+                System.out.println(new String(Helpers.xorDecode(data, Helpers.key)));
             }
         } catch (SocketException | UnknownHostException e) {
             throw new RuntimeException(e);
@@ -113,10 +138,12 @@ public class Client {
         }
     }
 
+    public static void main(String[] args) {
+        setup();
+    }
 
     /**
      * DEBUG
-     *
      * @param encryptedPackets - print encrypted packets in terminal in readable format
      */
     static void printPackets(ArrayList<byte[]> encryptedPackets) {
