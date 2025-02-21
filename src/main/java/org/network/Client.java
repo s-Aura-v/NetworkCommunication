@@ -79,8 +79,8 @@ public class Client {
         Arrays.fill(megabyteString, 's');
         Helpers.msg = new String(megabyteString);
         System.out.println("Bit Size of Input: " + Helpers.msg.getBytes().length);
-        Helpers.msgSize = 1024;
-        Helpers.iterations = 1024;
+        Helpers.msgSize = 512;
+        Helpers.iterations = 2048;
 
         int stringIndex = 0;
         for (int i = 0; i < Helpers.iterations; i++) {
@@ -157,7 +157,7 @@ public class Client {
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
                 System.out.println("Packet " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
-                System.out.println("Throughput of File: " + Helpers.msgSize/diffInSeconds + " operations/seconds");
+                System.out.println("Throughput: " + Helpers.iterations/diffInSeconds + " op/s");
             }
 
             System.out.println("All packets sent and received successfully.");
