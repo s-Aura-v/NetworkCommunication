@@ -26,7 +26,7 @@ public class TCPServer {
                             byte[] byteArray = new byte[length];
                             in.readFully(byteArray);
 
-                            System.out.println("Decoded byte array: " + new String(Helpers.xorDecode(byteArray, Helpers.key)));
+                            System.out.println("Decoded byte array: " + new String(Helpers.xorEncode(byteArray, Helpers.key)));
 
                             out.writeInt(byteArray.length);
                             out.write(byteArray);

@@ -16,7 +16,7 @@ public class UDPServer {
 
                 byte[] data = packet.getData();
                 maxBufferSize = packet.getLength();
-                System.out.println("Decoded byte array: " + new String(Helpers.xorDecode(data, Helpers.key)));
+                System.out.println("Decoded byte array: " + new String(Helpers.xorEncode(data, Helpers.key)));
 
                 DatagramPacket responsePacket = new DatagramPacket(
                         data, data.length, packet.getAddress(), packet.getPort());

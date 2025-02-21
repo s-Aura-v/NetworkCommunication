@@ -34,7 +34,7 @@ public class Helpers {
         // Encrypt the message
         byte[] ciphertext = xorEncode(messageBytes, key);
         System.out.println("Ciphertext: " + new String(ciphertext));
-        byte[] decryptedBytes = xorDecode(ciphertext, key);
+        byte[] decryptedBytes = xorEncode(ciphertext, key);
 
         // Update the key for the next message
         key = xorShift(key);
@@ -52,11 +52,6 @@ public class Helpers {
             encrypted[i] = (byte) (message[i] ^ ((key >> (8 * (i % 8))) & 0xFF));
         }
         return encrypted;
-    }
-
-    // Method is a bit redundant, but I like having nicer method names
-    public static byte[] xorDecode(byte[] ciphertext, long key) {
-        return xorEncode(ciphertext, key);
     }
 
     static long xorShift(long r) {

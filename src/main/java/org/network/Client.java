@@ -196,7 +196,7 @@ public class Client {
 
                 byte[] data = receivePacket.getData();
                 System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
-                System.out.println(new String(Helpers.xorDecode(data, Helpers.key)));
+                System.out.println(new String(Helpers.xorEncode(data, Helpers.key)));
             }
         } catch (SocketException | UnknownHostException e) {
             throw new RuntimeException(e);
@@ -224,7 +224,7 @@ public class Client {
                 byte[] data = receivePacket.getData();
                 System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
                 System.out.println("Throughput: " + Helpers.iterations/diffInSeconds + " op/s");
-                System.out.println(new String(Helpers.xorDecode(data, Helpers.key)));
+                System.out.println(new String(Helpers.xorEncode(data, Helpers.key)));
             }
         } catch (SocketException | UnknownHostException e) {
             throw new RuntimeException(e);
