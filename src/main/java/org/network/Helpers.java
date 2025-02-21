@@ -21,31 +21,17 @@ public class Helpers {
 
     /**
      * The amount of times the message should be sent.
+     * 3 is the default value, but it is never used.
+     * The value depends on the Scanner input in Client.
      */
     public static int iterations = 3;
 
-
-    public static void main(String[] args) {
-        // Shared none zero initial key
-
-        String message = "helloasd";
-        byte[] messageBytes = message.getBytes();
-
-        // Encrypt the message
-        byte[] ciphertext = xorEncode(messageBytes, key);
-        System.out.println("Ciphertext: " + new String(ciphertext));
-        byte[] decryptedBytes = xorEncode(ciphertext, key);
-
-        // Update the key for the next message
-        key = xorShift(key);
-
-        // Decrypt the message
-        String decryptedMessage = new String(decryptedBytes);
-        System.out.println("Decrypted Message: " + decryptedMessage);
-
-        System.out.println(message.getBytes().length + " " + decryptedMessage.getBytes().length + " " + ciphertext.length);
-    }
-
+    /**
+     * Encrypted the message using a XOR sequence.
+     * @param message - the input to be encrypted
+     * @param key - the seed that determines how it is encrypted
+     * @return encrypted byte[] - the input, encrypted.
+     */
     public static byte[] xorEncode(byte[] message, long key) {
         byte[] encrypted = new byte[message.length];
         for (int i = 0; i < message.length; i++) {
@@ -54,6 +40,11 @@ public class Helpers {
         return encrypted;
     }
 
+    /**
+     * Changes the initial key for encoding and decoding purposes
+     * @param r - initial key
+     * @return r - new key
+     */
     static long xorShift(long r) {
         r ^= r << 13;
         r ^= r >>> 7;

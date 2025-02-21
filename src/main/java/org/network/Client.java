@@ -19,7 +19,6 @@ public class Client {
     static int udpServicePortNumber = 26881;
     static String agreement = "13610152"; // Triangular Numbers
 
-
     /**
      * Data that is being sent to the server.
      * String converted into bytes that is encrypted through an XOR operation.
@@ -239,7 +238,6 @@ public class Client {
 
     /**
      * DEBUG
-     *
      * @param encryptedPackets - print encrypted packets in terminal in readable format
      */
     static void printPackets(ArrayList<byte[]> encryptedPackets) {
