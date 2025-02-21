@@ -23,7 +23,7 @@ public class UDPServer {
                 serverSocket.send(responsePacket);
                 System.out.println("Sent response to client. " + index);
                 index++;
-                serverSocket.close();
+//                serverSocket.close();
             }
         } catch (IOException e) {
             System.out.println("Caught IOException: " + e);

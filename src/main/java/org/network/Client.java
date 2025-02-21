@@ -94,6 +94,7 @@ public class Client {
         }
 
         throughputTCP();;
+//        throughputUDP();
     }
 
     /**
@@ -195,6 +196,34 @@ public class Client {
 
                 byte[] data = receivePacket.getData();
                 System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
+                System.out.println(new String(Helpers.xorDecode(data, Helpers.key)));
+            }
+        } catch (SocketException | UnknownHostException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static void throughputUDP() {
+        try (DatagramSocket socket = new DatagramSocket(26881)) {
+            InetAddress address = InetAddress.getByName(host);
+            for (int i = 0; i < encryptedPackets.size(); i++) {
+                long sendTime = System.nanoTime();
+                DatagramPacket packet = new DatagramPacket(encryptedPackets.get(i), encryptedPackets.get(i).length, address, 26882);
+                socket.send(packet);
+
+                // Receive the response from the server
+                byte[] buffer = new byte[Helpers.msgSize];
+                DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
+                socket.receive(receivePacket);
+
+                long receiveTime = System.nanoTime();
+                double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+
+                byte[] data = receivePacket.getData();
+                System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
+                System.out.println("Throughput: " + Helpers.iterations/diffInSeconds + " op/s");
                 System.out.println(new String(Helpers.xorDecode(data, Helpers.key)));
             }
         } catch (SocketException | UnknownHostException e) {
