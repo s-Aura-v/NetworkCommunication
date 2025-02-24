@@ -41,59 +41,80 @@ public class Client {
      * return @encryptedPackets - an ArrayList that stores encrypted message as a byte[] - will be sent to the server
      */
     static void setup() {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Enter the message you would like to send: ");
-//        Helpers.msg = scanner.nextLine();
-//        System.out.println("Enter the amount of bytes each packet should send: ");
-//        Helpers.msgSize = scanner.nextInt();
-//        System.out.println("Enter the number of packets to send: ");
-//        Helpers.iterations = scanner.nextInt();
-//        System.out.println("TCP Connection? (False = UDP)");
-//        boolean tcp = scanner.nextBoolean();
-//        System.out.println("Throughput or Latency?");
-//        boolean throughputLatency = scanner.nextBoolean();
-//        scanner.close();
-
-//        int stringIndex = 0;
-//        for (int i = 0; i < Helpers.iterations; i++) {
-//            packets.add(Helpers.msg.substring(stringIndex, stringIndex + Helpers.msgSize));
-//            stringIndex += Helpers.msgSize;
-//        }
-//        for (String s : packets) {
-//            encryptedPackets.add(Helpers.xorEncode(s.getBytes(), Helpers.key));
-//        }
-//        System.out.println(packets);
-//        printPackets(encryptedPackets);
-//
-//        // TODO: UNCOMMENT AND FIX WHEN THROUGHPUT ENDS
-////        if (tcp) {
-////            TCPConnection();
-////        } else {
-////            UDPConnection();
-////        }
-
-        //THROUGHPUT TEST
-        System.out.println(Helpers.msg.getBytes().length);
-        char[] megabyteString = new char[1048576];
-        Arrays.fill(megabyteString, 's');
-        Helpers.msg = new String(megabyteString);
-        System.out.println("Bit Size of Input: " + Helpers.msg.getBytes().length);
-        Helpers.msgSize = 512;
-        Helpers.iterations = 2048;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Select Test Scenario: \n" +
+                "TRUE: Latency \n" +
+                "FALSE: Throughput");
+        boolean isTestingLatency = scanner.nextBoolean();
+        if (isTestingLatency) {
+            System.out.println("Enter the message you would like to send: ");
+            Helpers.msg = scanner.nextLine();
+            System.out.println("Enter the amount of bytes each packet should send: ");
+            Helpers.msgSize = scanner.nextInt();
+            System.out.println("Enter the number of iterations to run: ");
+            Helpers.iterations = scanner.nextInt();
+            System.out.println("Select Connection Type: \n" +
+                    "TRUE: TCP \n" +
+                    "FALSE: UDP");
+            if (scanner.nextBoolean()) {
+                Helpers.test = 1;
+            } else {
+                Helpers.test = 3;
+            }
+        } else {
+            char[] megabyteString = new char[1048576];
+            Arrays.fill(megabyteString, 's');
+            Helpers.msg = new String(megabyteString);
+            System.out.println("Enter the amount of bytes each packet should send: ");
+            Helpers.msgSize = scanner.nextInt();
+            System.out.println("Enter the number of messages you would like to send: ");
+            Helpers.numberOfMessages = scanner.nextInt();
+            System.out.println("Enter the number of iterations to run: ");
+            Helpers.iterations = scanner.nextInt();
+            System.out.println("Select Connection Type: \n" +
+                    "TRUE: TCP \n" +
+                    "FALSE: UDP");
+            if (scanner.nextBoolean()) {
+                Helpers.test = 2;
+            } else {
+                Helpers.test = 4;
+            }
+        }
+        scanner.close();
 
         int stringIndex = 0;
+        
         for (int i = 0; i < Helpers.iterations; i++) {
-            String message = Helpers.msg.substring(stringIndex, stringIndex + Helpers.msgSize);
-            message+= agreement;
-            packets.add(message);
+            packets.add(Helpers.msg.substring(stringIndex, stringIndex + Helpers.msgSize));
             stringIndex += Helpers.msgSize;
         }
+
+        if (Helpers.test == 2 || Helpers.test == 4) {
+            for (int i = 0; i < packets.size(); i++) {
+                String eightByteAgreementMessage = packets.get(i) + agreement;
+                packets.set(i, eightByteAgreementMessage);
+            }
+        }
+
         for (String s : packets) {
             encryptedPackets.add(Helpers.xorEncode(s.getBytes(), Helpers.key));
         }
+        System.out.println(packets);
+        printPackets(encryptedPackets);
 
-        throughputTCP();;
-//        throughputUDP();
+        // TODO: UNCOMMENT AND FIX WHEN THROUGHPUT ENDS
+        switch (Helpers.test) {
+            case (1):
+                TCPConnection();
+                break;
+            case (2):
+                throughputTCP();
+                break;
+            case (3):
+                UDPConnection();
+            case (4):
+                throughputUDP();
+        }
     }
 
     /**
@@ -119,7 +140,7 @@ public class Client {
 
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-                System.out.println("Packet " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
+                System.out.println(Helpers.msgSize + " byte packet " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
             }
 
             System.out.println("All packets sent and received successfully.");
@@ -149,7 +170,6 @@ public class Client {
                 out.write(encryptedPackets.get(i));
                 out.flush();
 
-
                 int length = in.readInt();
                 byte[] byteArray = new byte[length];
                 in.readFully(byteArray);
@@ -157,7 +177,7 @@ public class Client {
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
                 System.out.println("Packet " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
-                System.out.println("Throughput: " + Helpers.iterations/diffInSeconds + " op/s");
+                System.out.println("Throughput: " + Helpers.iterations / diffInSeconds + " op/s");
             }
 
             System.out.println("All packets sent and received successfully.");
@@ -222,7 +242,7 @@ public class Client {
 
                 byte[] data = receivePacket.getData();
                 System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
-                System.out.println("Throughput: " + Helpers.iterations/diffInSeconds + " op/s");
+                System.out.println("Throughput: " + Helpers.iterations / diffInSeconds + " op/s");
                 System.out.println(new String(Helpers.xorEncode(data, Helpers.key)));
             }
         } catch (SocketException | UnknownHostException e) {
@@ -238,6 +258,7 @@ public class Client {
 
     /**
      * DEBUG
+     *
      * @param encryptedPackets - print encrypted packets in terminal in readable format
      */
     static void printPackets(ArrayList<byte[]> encryptedPackets) {

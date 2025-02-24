@@ -1,5 +1,7 @@
 package org.network;
 
+import java.util.ArrayList;
+
 public class Helpers {
     /**
      * Used as a key for XOR shifting.
@@ -14,6 +16,8 @@ public class Helpers {
      */
     public static int msgSize = 8;
 
+    public static int numberOfMessages = 0;
+
     /**
      * The message that will be divided into bytes
      */
@@ -21,10 +25,18 @@ public class Helpers {
 
     /**
      * The amount of times the message should be sent.
-     * 3 is the default value, but it is never used.
+     * 30 is the default value in case of errors, but it is never used.
      * The value depends on the Scanner input in Client.
      */
-    public static int iterations = 3;
+    public static int iterations = 30;
+
+    public static short test = 0;
+
+    /**
+     * Data gathered
+     */
+    private ArrayList<Double> tcpTime = new ArrayList<>();
+    private ArrayList<Double> udpTime = new ArrayList<>();
 
     /**
      * Encrypted the message using a XOR sequence.
