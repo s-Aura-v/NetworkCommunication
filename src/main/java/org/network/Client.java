@@ -68,9 +68,9 @@ public class Client {
             System.out.println("Enter the amount of bytes each packet should send: ");
             Helpers.msgSize = scanner.nextInt();
             System.out.println("Enter the number of messages you would like to send: ");
-            Helpers.numberOfMessages = scanner.nextInt();
-            System.out.println("Enter the number of iterations to run: ");
             Helpers.iterations = scanner.nextInt();
+            System.out.println("Enter the number of iterations to run: ");
+            Helpers.numberOfMessages = scanner.nextInt();
             System.out.println("Select Connection Type: \n" +
                     "TRUE: TCP \n" +
                     "FALSE: UDP");
@@ -83,7 +83,7 @@ public class Client {
         scanner.close();
 
         int stringIndex = 0;
-        
+
         for (int i = 0; i < Helpers.iterations; i++) {
             packets.add(Helpers.msg.substring(stringIndex, stringIndex + Helpers.msgSize));
             stringIndex += Helpers.msgSize;
@@ -164,23 +164,23 @@ public class Client {
 
             echoSocket.setSoTimeout(30000);
 
-            for (int i = 0; i < encryptedPackets.size(); i++) {
+            for (int numberOfMessages = 0; numberOfMessages < Helpers.numberOfMessages; numberOfMessages++) {
                 long sendTime = System.nanoTime();
-                out.writeInt(encryptedPackets.get(i).length);
-                out.write(encryptedPackets.get(i));
-                out.flush();
+                for (int i = 0; i < encryptedPackets.size(); i++) {
+                    out.writeInt(encryptedPackets.get(i).length);
+                    out.write(encryptedPackets.get(i));
+                    out.flush();
 
-                int length = in.readInt();
-                byte[] byteArray = new byte[length];
-                in.readFully(byteArray);
-
+                    int length = in.readInt();
+                    byte[] byteArray = new byte[length];
+                    in.readFully(byteArray);
+                }
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-                System.out.println("Packet " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
-                System.out.println("Throughput: " + Helpers.iterations / diffInSeconds + " op/s");
+                System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
+                        " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
             }
 
-            System.out.println("All packets sent and received successfully.");
             in.close();
             out.close();
             echoSocket.close();
@@ -227,8 +227,10 @@ public class Client {
     static void throughputUDP() {
         try (DatagramSocket socket = new DatagramSocket(26881)) {
             InetAddress address = InetAddress.getByName(host);
-            for (int i = 0; i < encryptedPackets.size(); i++) {
+
+            for (int numberOfMessages = 0; numberOfMessages < Helpers.numberOfMessages; numberOfMessages++) {
                 long sendTime = System.nanoTime();
+            for (int i = 0; i < encryptedPackets.size(); i++) {
                 DatagramPacket packet = new DatagramPacket(encryptedPackets.get(i), encryptedPackets.get(i).length, address, 26882);
                 socket.send(packet);
 
@@ -237,14 +239,16 @@ public class Client {
                 DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
                 socket.receive(receivePacket);
 
-                long receiveTime = System.nanoTime();
-                double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-
                 byte[] data = receivePacket.getData();
-                System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
-                System.out.println("Throughput: " + Helpers.iterations / diffInSeconds + " op/s");
                 System.out.println(new String(Helpers.xorEncode(data, Helpers.key)));
             }
+            long receiveTime = System.nanoTime();
+            double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+
+            System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
+                    " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
+            }
+
         } catch (SocketException | UnknownHostException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -258,7 +262,6 @@ public class Client {
 
     /**
      * DEBUG
-     *
      * @param encryptedPackets - print encrypted packets in terminal in readable format
      */
     static void printPackets(ArrayList<byte[]> encryptedPackets) {
