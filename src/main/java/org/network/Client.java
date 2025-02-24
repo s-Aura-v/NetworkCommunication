@@ -46,6 +46,7 @@ public class Client {
                 "TRUE: Latency \n" +
                 "FALSE: Throughput");
         boolean isTestingLatency = scanner.nextBoolean();
+        scanner.nextLine();
         if (isTestingLatency) {
             System.out.println("Enter the message you would like to send: ");
             Helpers.msg = scanner.nextLine();
@@ -121,6 +122,7 @@ public class Client {
      * Using Sockets (TCP), we send and receive packets to and from the server in a connection-based protocol.
      */
     static void TCPConnection() {
+        ArrayList<Double> tcpLatencyData = new ArrayList<>();
         try (Socket echoSocket = new Socket(host, echoServicePortNumber);
              DataOutputStream out = new DataOutputStream(echoSocket.getOutputStream());
              DataInputStream in = new DataInputStream(echoSocket.getInputStream())) {
@@ -140,6 +142,8 @@ public class Client {
 
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+                tcpLatencyData.add(diffInSeconds);
+
                 System.out.println(Helpers.msgSize + " byte packet " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
             }
 
@@ -154,10 +158,14 @@ public class Client {
         } catch (IOException e) {
             System.err.println("IO failure.");
             e.printStackTrace();
+        } finally {
+            Graphing.graph(tcpLatencyData);
+
         }
     }
 
     static void throughputTCP() {
+        ArrayList<Double> tcpThroughputData = new ArrayList<>();
         try (Socket echoSocket = new Socket(host, echoServicePortNumber);
              DataOutputStream out = new DataOutputStream(echoSocket.getOutputStream());
              DataInputStream in = new DataInputStream(echoSocket.getInputStream())) {
@@ -177,6 +185,8 @@ public class Client {
                 }
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+
+                tcpThroughputData.add(Helpers.iterations / diffInSeconds);
                 System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
                         " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
             }
@@ -191,6 +201,8 @@ public class Client {
         } catch (IOException e) {
             System.err.println("IO failure.");
             e.printStackTrace();
+        } finally {
+            Graphing.graph(tcpThroughputData);
         }
     }
 
@@ -198,6 +210,7 @@ public class Client {
      * Using Datagrams, (UDP Connection), we send packets to and from the server through a connectionless protocol.
      */
     static void UDPConnection() {
+        ArrayList<Double> udpLatencyData = new ArrayList<>();
         try (DatagramSocket socket = new DatagramSocket(26881)) {
             InetAddress address = InetAddress.getByName(host);
             for (int i = 0; i < encryptedPackets.size(); i++) {
@@ -212,6 +225,7 @@ public class Client {
 
                 long receiveTime = System.nanoTime();
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+                udpLatencyData.add(diffInSeconds);
 
                 byte[] data = receivePacket.getData();
                 System.out.println("Datagram " + (i + 1) + " sent and received in " + diffInSeconds + " seconds");
@@ -221,10 +235,13 @@ public class Client {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            Graphing.graph(udpLatencyData);
         }
     }
 
     static void throughputUDP() {
+        ArrayList<Double> udpThroughputData = new ArrayList<>();
         try (DatagramSocket socket = new DatagramSocket(26881)) {
             InetAddress address = InetAddress.getByName(host);
 
@@ -244,6 +261,7 @@ public class Client {
             }
             long receiveTime = System.nanoTime();
             double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+            udpThroughputData.add(diffInSeconds);
 
             System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
                     " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
@@ -253,7 +271,11 @@ public class Client {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            Graphing.graph(udpThroughputData);
         }
+
+
     }
 
     public static void main(String[] args) {

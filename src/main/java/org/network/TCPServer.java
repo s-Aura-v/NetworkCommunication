@@ -2,12 +2,15 @@ package org.network;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 /**
  * Receives data from client and decodes it, before sending it back to client.
  */
 public class TCPServer {
     static final int PORT = 26880;
+    static int numHits = 0;
+
     public static void main(String[] args) {
         System.out.println("Waiting for Connection");
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -26,7 +29,11 @@ public class TCPServer {
                             byte[] byteArray = new byte[length];
                             in.readFully(byteArray);
 
-                            System.out.println("Decoded byte array: " + new String(Helpers.xorEncode(byteArray, Helpers.key)));
+                            String message = new String(Helpers.xorEncode(byteArray, Helpers.key));
+                            System.out.println("Decoded byte array: " + message);
+                            if (message.substring(message.length() - 8).equals(Client.agreement)) {
+                                numHits++;
+                            }
 
                             out.writeInt(byteArray.length);
                             out.write(byteArray);
@@ -45,6 +52,7 @@ public class TCPServer {
                 } catch (IOException e) {
                     System.err.println("Error handling client connection: " + e.getMessage());
                 } finally {
+                    System.out.println("8-bit key verification hits: " + numHits);
                     try {
                         client.close();
                     } catch (IOException e) {
