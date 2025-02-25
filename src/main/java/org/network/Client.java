@@ -161,7 +161,7 @@ public class Client {
             System.err.println("IO failure.");
             e.printStackTrace();
         } finally {
-            Graphing.graph(tcpLatencyData);
+            Graphing.graph(tcpLatencyData, "TCP Latency Benchmark");
 
         }
     }
@@ -204,7 +204,7 @@ public class Client {
             System.err.println("IO failure.");
             e.printStackTrace();
         } finally {
-            Graphing.graph(tcpThroughputData);
+            Graphing.graph(tcpThroughputData, "TCP Throughput Benchmark");
         }
     }
 
@@ -238,7 +238,7 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            Graphing.graph(udpLatencyData);
+            Graphing.graph(udpLatencyData, "UDP Latency Benchmark");
         }
     }
 
@@ -263,7 +263,7 @@ public class Client {
             }
             long receiveTime = System.nanoTime();
             double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-            udpThroughputData.add(diffInSeconds);
+            udpThroughputData.add(Helpers.iterations / diffInSeconds);
 
             System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
                     " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
@@ -274,7 +274,7 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            Graphing.graph(udpThroughputData);
+            Graphing.graph(udpThroughputData, "UDP Throughput Benchmark");
         }
     }
 

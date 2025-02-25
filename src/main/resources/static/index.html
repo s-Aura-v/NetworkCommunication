@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #bfbfbf;
+            height: 100%;
+        }
+
+        .div {
+            border: 1.5px solid #bfbfbf;
+            margin: 3rem;
+            height: calc(100vh - 6rem);
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .centered {
+            display: flex;
+            align-content: center;
+            flex-direction: column;
+            height: inherit;
+            width: inherit;
+        }
+
+        .centered img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border: 1px solid #bfbfbf;
+        }
+
+        .data-columns {
+        }
+    </style>
+</head>
+<body>
+<div class="div">
+    <div class="centered">
+        <h1>
+            Latency
+        </h1>
+        <figure>
+            <img src="UDP%20Latency%20Benchmark.png"/>
+
+        </figure>
+    </div>
+    <div class="centered">
+        <h1>
+            Throughput
+        </h1>
+        <figure>
+            <img src="UDP%20Throughput%20Benchmark.png"/>
+            <figcaption>hey</figcaption>
+        </figure>
+    </div>
+</div>
+
+</body>
+</html>
