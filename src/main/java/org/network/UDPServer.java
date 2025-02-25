@@ -26,7 +26,7 @@ public class UDPServer {
                     }
 
                     DatagramPacket responsePacket = new DatagramPacket(
-                            data, data.length, packet.getAddress(), packet.getPort());
+                            data, maxBufferSize, packet.getAddress(), packet.getPort());
                     serverSocket.send(responsePacket);
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");

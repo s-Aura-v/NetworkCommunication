@@ -14,7 +14,7 @@ public class Client {
      * Host: server url
      * Port: port
      */
-    static String host = "localhost";
+    static String host = "gee.cs.oswego.edu";
     static int echoServicePortNumber = 26880;
     static int udpServicePortNumber = 26881;
     static String agreement = "13610152"; // Triangular Numbers
