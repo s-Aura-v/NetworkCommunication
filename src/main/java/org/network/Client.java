@@ -161,7 +161,7 @@ public class Client {
             System.err.println("IO failure.");
             e.printStackTrace();
         } finally {
-            Graphing.graph(tcpLatencyData, "TCP Latency Benchmark");
+            Graphing.graph(tcpLatencyData, "TCPLatencyBenchmark");
 
         }
     }
@@ -204,7 +204,7 @@ public class Client {
             System.err.println("IO failure.");
             e.printStackTrace();
         } finally {
-            Graphing.graph(tcpThroughputData, "TCP Throughput Benchmark");
+            Graphing.graph(tcpThroughputData, "TCPThroughputBenchmark");
         }
     }
 
@@ -238,7 +238,7 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            Graphing.graph(udpLatencyData, "UDP Latency Benchmark");
+            Graphing.graph(udpLatencyData, "UDPLatencyBenchmark");
         }
     }
 
@@ -274,7 +274,7 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            Graphing.graph(udpThroughputData, "UDP Throughput Benchmark");
+            Graphing.graph(udpThroughputData, "UDPThroughputBenchmark");
         }
     }
 
