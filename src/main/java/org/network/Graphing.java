@@ -15,12 +15,12 @@ public class Graphing {
         XYSeries hashMapXY = new XYSeries("Temp");
 
         for (int i = 0; i < data.size(); i++) {
-            hashMapXY.add(i, data.get(i));  // Use i as the x-value and solution.get(i) as the y-value
+            hashMapXY.add(i, data.get(i));
         }
 
         XYSeriesCollection solutionsXY = new XYSeriesCollection(hashMapXY);
         JFreeChart hashMapLineChart = ChartFactory.createXYLineChart(
-                "Average Runtime for Hashmap Read Mostly Dataset",
+                "TCP-UDP Test",
                 "Iteration",
                 "Millisecond/Operation",
                 solutionsXY,

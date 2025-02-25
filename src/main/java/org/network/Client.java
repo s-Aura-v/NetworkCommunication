@@ -113,8 +113,10 @@ public class Client {
                 break;
             case (3):
                 UDPConnection();
+                break;
             case (4):
                 throughputUDP();
+                break;
         }
     }
 
@@ -274,8 +276,6 @@ public class Client {
         } finally {
             Graphing.graph(udpThroughputData);
         }
-
-
     }
 
     public static void main(String[] args) {

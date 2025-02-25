@@ -17,7 +17,7 @@ public class TCPServer {
             for (; ; ) {
                 Socket client = serverSocket.accept();
                 System.out.println("Server Connected");
-                client.setSoTimeout(30000); // Set a 30-second timeout
+                client.setSoTimeout(30000);
 
                 try (DataOutputStream out = new DataOutputStream(client.getOutputStream());
                      DataInputStream in = new DataInputStream(client.getInputStream())) {
