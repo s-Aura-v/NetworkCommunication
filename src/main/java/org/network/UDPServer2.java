@@ -12,9 +12,6 @@ public class UDPServer2 {
     public static void main(String[] args) {
         int maxBufferSize = 512;
         try (DatagramSocket serverSocket = new DatagramSocket(26882)) {
-
-            // if i can't continue, kill the current data for now.
-            serverSocket.setSoTimeout(30000);
             System.out.println("Datagram listening...?");
 
             for (; ; ) {
@@ -29,8 +26,6 @@ public class UDPServer2 {
                     DatagramPacket responsePacket = new DatagramPacket(
                             data, maxBufferSize, packet.getAddress(), packet.getPort());
                     serverSocket.send(responsePacket);
-                } catch (SocketTimeoutException e) {
-                    System.out.println("Socket timeout, continuing to listen...");
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");
                     break;
