@@ -245,33 +245,39 @@ public class Client {
     static void throughputUDP() {
         ArrayList<Double> udpThroughputData = new ArrayList<>();
         try (DatagramSocket socket = new DatagramSocket(26881)) {
+            socket.setSoTimeout(30000);
             InetAddress address = InetAddress.getByName(host);
 
             for (int numberOfMessages = 0; numberOfMessages < Helpers.numberOfMessages; numberOfMessages++) {
                 long sendTime = System.nanoTime();
-            for (int i = 0; i < encryptedPackets.size(); i++) {
-                DatagramPacket packet = new DatagramPacket(encryptedPackets.get(i), encryptedPackets.get(i).length, address, 26882);
-                socket.send(packet);
+                for (int i = 0; i < encryptedPackets.size(); i++) {
+                    try {
+                        DatagramPacket packet = new DatagramPacket(encryptedPackets.get(i), encryptedPackets.get(i).length, address, 26882);
+                        socket.send(packet);
 
-                // Receive the response from the server
-                byte[] buffer = new byte[Helpers.msgSize];
-                DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
-                socket.receive(receivePacket);
+                        // Receive the response from the server
+                        byte[] buffer = new byte[Helpers.msgSize];
+                        DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
+                        socket.receive(receivePacket);
 
-                byte[] data = receivePacket.getData();
-                System.out.println(new String(Helpers.xorEncode(data, Helpers.key)));
+                        byte[] data = receivePacket.getData();
+                        String decoded = new String(Helpers.xorEncode(data, Helpers.key));
+                    } catch (SocketTimeoutException e) {
+                        // Handle timeout (packet lost)
+                        System.err.println("Packet lost or no response from server, skipping to next message...");
+                        continue;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                long receiveTime = System.nanoTime();
+                double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+                udpThroughputData.add(Helpers.iterations / diffInSeconds);
+
+                System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
+                        " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
             }
-            long receiveTime = System.nanoTime();
-            double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-            udpThroughputData.add(Helpers.iterations / diffInSeconds);
-
-            System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
-                    " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
-            }
-
         } catch (SocketException | UnknownHostException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
             Graphing.graph(udpThroughputData, "UDPThroughputBenchmark");
@@ -284,6 +290,7 @@ public class Client {
 
     /**
      * DEBUG
+     *
      * @param encryptedPackets - print encrypted packets in terminal in readable format
      */
     static void printPackets(ArrayList<byte[]> encryptedPackets) {

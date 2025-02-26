@@ -69,6 +69,21 @@
               </transformers>
             </configuration>
           </execution>
+          <execution>
+            <id>UDP2</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>UDP2</finalName>
+              <transformers>
+                <transformer>
+                  <mainClass>org.network.UDPServer2</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>

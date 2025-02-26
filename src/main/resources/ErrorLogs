@@ -1,0 +1,4 @@
+UDP Related:
+1. The UDP "Server" never closes.
+Because of this, the data from any previous iterations are saved.
+i. Can't send any message with a longer size
