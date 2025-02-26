@@ -9,6 +9,8 @@ import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeoutException;
 
 public class UDPServer2 {
+    static int numHits = 0;
+
     public static void main(String[] args) {
         int maxBufferSize = 512;
         try (DatagramSocket serverSocket = new DatagramSocket(26882)) {
@@ -22,6 +24,9 @@ public class UDPServer2 {
                     maxBufferSize = packet.getLength();
                     byte[] data = packet.getData();
                     String message = new String(Helpers.xorEncode(data, Helpers.key));
+                    if (message.length() > 8 && message.substring(message.length() - 8).equals(Client.agreement)) {
+                        numHits++;
+                    }
 
                     DatagramPacket responsePacket = new DatagramPacket(
                             data, maxBufferSize, packet.getAddress(), packet.getPort());

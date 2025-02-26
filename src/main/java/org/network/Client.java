@@ -244,6 +244,7 @@ public class Client {
 
     static void throughputUDP() {
         ArrayList<Double> udpThroughputData = new ArrayList<>();
+        boolean loopBroken = false;
         try (DatagramSocket socket = new DatagramSocket(26881)) {
             socket.setSoTimeout(30000);
             InetAddress address = InetAddress.getByName(host);
@@ -265,17 +266,23 @@ public class Client {
                     } catch (SocketTimeoutException e) {
                         // Handle timeout (packet lost)
                         System.err.println("Packet lost or no response from server, skipping to next message...");
-                        continue;
+                        loopBroken = true;
+                        break;
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                long receiveTime = System.nanoTime();
-                double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-                udpThroughputData.add(Helpers.iterations / diffInSeconds);
-
-                System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
-                        " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
+                if (!loopBroken) {
+                    long receiveTime = System.nanoTime();
+                    double diffInSeconds = (receiveTime - sendTime) * 1e-9;
+                    double throughput = (Helpers.msgSize * Byte.SIZE) / (diffInSeconds);
+                    udpThroughputData.add(throughput);
+                    System.out.println("All " + Helpers.numberOfMessages + " packets sent and received in " + diffInSeconds +
+                            " seconds with a throughput of " + throughput + " op/s");
+                } else {
+                    udpThroughputData.add(0.0);
+                    loopBroken = false;
+                }
             }
         } catch (SocketException | UnknownHostException e) {
             throw new RuntimeException(e);

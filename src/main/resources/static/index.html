@@ -10,19 +10,23 @@
             height: 100%;
         }
 
+        figure {
+            padding: 0;
+            margin: 1em;
+        }
+
         .div {
             border: 1.5px solid #bfbfbf;
-            margin: 3rem;
-            height: calc(100vh - 6rem);
+            /*height: calc(100vh - 6rem);*/
             box-sizing: border-box;
             display: grid;
-            grid-template-columns: 1fr 1fr;
         }
 
         .centered {
             display: flex;
+            margin: 0;
+            padding: 0;
             align-content: center;
-            flex-direction: column;
             height: inherit;
             width: inherit;
         }
@@ -32,6 +36,7 @@
             max-height: 100%;
             object-fit: contain;
             border: 1px solid #bfbfbf;
+            gap:0;
         }
 
         .data-columns {
@@ -40,24 +45,67 @@
 </head>
 <body>
 <div class="div">
+    <h1>
+        Latency
+    </h1>
     <div class="centered">
-        <h1>
-            Latency
-        </h1>
         <figure>
-            <img src="UDP%20Latency%20Benchmark.png"/>
+            <img src="[8]TCPLatencyBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[64]TCPLatencyBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[256]TCPLatencyBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[512]TCPLatencyBenchmark.png"/>
+        </figure>
+    </div>
+    <div class="centered">
+        <figure>
+            <img src="[8]UDPLatencyBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[64]UDPLatencyBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[256]UDPLatencyBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[512]UDPLatencyBenchmark.png"/>
+        </figure>
+    </div>
 
+    <h1>
+        Throughput
+    </h1>
+    <div class="centered">
+        <figure>
+            <img src="[1024]UDPThroughputBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[512]UDPThroughputBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[256]UDPThroughputBenchmark.png"/>
         </figure>
     </div>
     <div class="centered">
-        <h1>
-            Throughput
-        </h1>
         <figure>
-            <img src="UDP%20Throughput%20Benchmark.png"/>
-            <figcaption>hey</figcaption>
+            <img src="[1024]UDPThroughputBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[512]UDPThroughputBenchmark.png"/>
+        </figure>
+        <figure>
+            <img src="[256]UDPThroughputBenchmark.png"/>
         </figure>
     </div>
+
+    <h1>
+        Data Analysis
+    </h1>
 </div>
 
 </body>

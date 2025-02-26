@@ -2,3 +2,12 @@ UDP Related:
 1. The UDP "Server" never closes.
 Because of this, the data from any previous iterations are saved.
 i. Can't send any message with a longer size
+
+2. The UDP server loses packets, so the client can't continue.
+
+Solution: Add a timeout to client where if it takes too long, you send the next set of packets and "skip" the old set.
+
+
+3. Once packet is lost and the loop is broken, it would add the incomplete set of data to the data table.
+
+Solution: Add a loopBroken boolean that checks if the loop was broken prematurely.
