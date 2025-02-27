@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Client {
     /**
      * The server where the data will be sent to.
@@ -40,7 +41,7 @@ public class Client {
      * <p>
      * return @encryptedPackets - an ArrayList that stores encrypted message as a byte[] - will be sent to the server
      */
-    static void setup() {
+    static void setup() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select Test Scenario: \n" +
                 "TRUE: Latency \n" +
@@ -123,7 +124,7 @@ public class Client {
     /**
      * Using Sockets (TCP), we send and receive packets to and from the server in a connection-based protocol.
      */
-    static void TCPConnection() {
+    static void TCPConnection() throws IOException {
         ArrayList<Double> tcpLatencyData = new ArrayList<>();
         try (Socket echoSocket = new Socket(host, echoServicePortNumber);
              DataOutputStream out = new DataOutputStream(echoSocket.getOutputStream());
@@ -166,7 +167,7 @@ public class Client {
         }
     }
 
-    static void throughputTCP() {
+    static void throughputTCP() throws IOException {
         ArrayList<Double> tcpThroughputData = new ArrayList<>();
         try (Socket echoSocket = new Socket(host, echoServicePortNumber);
              DataOutputStream out = new DataOutputStream(echoSocket.getOutputStream());
@@ -189,7 +190,7 @@ public class Client {
                 double diffInSeconds = (receiveTime - sendTime) * 1e-9;
 
                 tcpThroughputData.add(Helpers.iterations / diffInSeconds);
-                System.out.println("All " + Helpers.msgSize + " packets sent and received in " + diffInSeconds +
+                System.out.println("All " + Helpers.numberOfMessages + " packets sent and received in " + diffInSeconds +
                         " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
             }
 
@@ -211,7 +212,7 @@ public class Client {
     /**
      * Using Datagrams, (UDP Connection), we send packets to and from the server through a connectionless protocol.
      */
-    static void UDPConnection() {
+    static void UDPConnection() throws IOException {
         ArrayList<Double> udpLatencyData = new ArrayList<>();
         try (DatagramSocket socket = new DatagramSocket(26881)) {
             InetAddress address = InetAddress.getByName(host);
@@ -242,7 +243,7 @@ public class Client {
         }
     }
 
-    static void throughputUDP() {
+    static void throughputUDP() throws IOException {
         ArrayList<Double> udpThroughputData = new ArrayList<>();
         boolean loopBroken = false;
         try (DatagramSocket socket = new DatagramSocket(26881)) {
@@ -291,7 +292,7 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         setup();
     }
 

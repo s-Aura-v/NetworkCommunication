@@ -9,8 +9,11 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.chart.ChartUtils;
 
 import javax.swing.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Graphing {

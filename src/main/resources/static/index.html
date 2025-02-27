@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TCP and UDP Protocols</title>
     <style>
         body {
             background-color: #1e1e1e;
@@ -12,7 +12,7 @@
 
         figure {
             padding: 0;
-            margin: 1em;
+            margin: 10px;
         }
 
         .div {
@@ -29,6 +29,7 @@
             align-content: center;
             height: inherit;
             width: inherit;
+            justify-content: space-between;
         }
 
         .centered img {
@@ -36,7 +37,13 @@
             max-height: 100%;
             object-fit: contain;
             border: 1px solid #bfbfbf;
-            gap:0;
+            gap: 0;
+        }
+
+        figcaption, .center {
+            display: flex;
+            justify-content: center;
+            align-content: center;
         }
 
         .data-columns {
@@ -45,50 +52,69 @@
 </head>
 <body>
 <div class="div">
-    <h1>
+    <h1 class="center">
         Latency
     </h1>
     <div class="centered">
         <figure>
             <img src="[8]TCPLatencyBenchmark.png"/>
+            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
         </figure>
         <figure>
-            <img src="[64]TCPLatencyBenchmark.png"/>
-        </figure>
-        <figure>
-            <img src="[256]TCPLatencyBenchmark.png"/>
-        </figure>
-        <figure>
-            <img src="[512]TCPLatencyBenchmark.png"/>
+            <img src="[8]UDPLatencyBenchmark.png"/>
+            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+
         </figure>
     </div>
     <div class="centered">
         <figure>
-            <img src="[8]UDPLatencyBenchmark.png"/>
+            <img src="[64]TCPLatencyBenchmark.png"/>
+            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
         </figure>
         <figure>
             <img src="[64]UDPLatencyBenchmark.png"/>
-        </figure>
-        <figure>
-            <img src="[256]UDPLatencyBenchmark.png"/>
-        </figure>
-        <figure>
-            <img src="[512]UDPLatencyBenchmark.png"/>
+            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
         </figure>
     </div>
 
-    <h1>
+    <div class="centered">
+        <figure>
+            <img src="[256]TCPLatencyBenchmark.png"/>
+            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+
+        </figure>
+        <figure>
+            <img src="[256]UDPLatencyBenchmark.png"/>
+            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+
+        </figure>
+    </div>
+    <div class="centered">
+        <figure>
+            <img src="[512]TCPLatencyBenchmark.png"/>
+            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+        </figure>
+        <figure>
+            <img src="[512]UDPLatencyBenchmark.png"/>
+            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+        </figure>
+    </div>
+
+    <h1 class="center">
         Throughput
     </h1>
     <div class="centered">
         <figure>
             <img src="[1024]UDPThroughputBenchmark.png"/>
+            <figcaption>UDP Throughput Benchmark. <br/>  Sent 1024 iterations of size 1024 byte packet.</figcaption>
         </figure>
         <figure>
             <img src="[512]UDPThroughputBenchmark.png"/>
+            <figcaption>UDP Throughput Benchmark. <br/> Sent 2048 iterations of size 512 byte packet.</figcaption>
         </figure>
         <figure>
             <img src="[256]UDPThroughputBenchmark.png"/>
+            <figcaption>UDP Throughput Benchmark. <br/> Sent 4096 iterations of size 256 byte packet.</figcaption>
         </figure>
     </div>
     <div class="centered">
@@ -103,9 +129,140 @@
         </figure>
     </div>
 
-    <h1>
+    <h1 class="center">
         Data Analysis
     </h1>
+    <!--
+    <table>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                TCP-8
+            </td>
+            <td>
+                UDP-8
+            </td>
+            <td>
+                TCP-64
+            </td>
+            <td>
+                UDP-64
+            </td>
+            <td>
+                TCP-256
+            </td>
+            <td>
+                UDP-256
+            </td>
+            <td>
+                TCP-512
+            </td>
+            <td>
+                UDP-512
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mean
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Packets Missed
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Fastest Time
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Slowest Time
+            </td>
+        </tr>
+        <tr>
+
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                TCP <br/>
+                1024 by 1024 bytes
+            </td>
+            <td>
+                UDP <br/>
+                1024 by 1024 bytes
+            </td>
+            <td>
+                TCP <br/>
+                2048 by 512 bytes
+            </td>
+            <td>
+                UDP <br/>
+                2048 by 512 bytes
+            </td>
+            <td>
+                TCP <br/>
+                4096 by 256 bytes
+            </td>
+            <td>
+                UDP <br/>
+                4096 by 256 bytes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mean
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Packets Missed
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Fastest Time
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Slowest Time
+            </td>
+        </tr>
+        <tr>
+
+        </tr>
+    </table>
+    -->
+
+
 </div>
 
 </body>
