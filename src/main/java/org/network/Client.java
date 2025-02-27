@@ -1,11 +1,9 @@
 package org.network;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -13,7 +11,7 @@ public class Client {
     /**
      * The server where the data will be sent to.
      * Host: server url
-     * Port: port
+     * Port: port where the networking occurs
      */
     static String host = "gee.cs.oswego.edu";
     static int echoServicePortNumber = 26880;
@@ -214,7 +212,7 @@ public class Client {
      */
     static void UDPConnection() throws IOException {
         ArrayList<Double> udpLatencyData = new ArrayList<>();
-        try (DatagramSocket socket = new DatagramSocket(26881)) {
+        try (DatagramSocket socket = new DatagramSocket(udpServicePortNumber)) {
             InetAddress address = InetAddress.getByName(host);
             for (int i = 0; i < encryptedPackets.size(); i++) {
                 long sendTime = System.nanoTime();
@@ -246,7 +244,7 @@ public class Client {
     static void throughputUDP() throws IOException {
         ArrayList<Double> udpThroughputData = new ArrayList<>();
         boolean loopBroken = false;
-        try (DatagramSocket socket = new DatagramSocket(26881)) {
+        try (DatagramSocket socket = new DatagramSocket(udpServicePortNumber)) {
             socket.setSoTimeout(30000);
             InetAddress address = InetAddress.getByName(host);
 

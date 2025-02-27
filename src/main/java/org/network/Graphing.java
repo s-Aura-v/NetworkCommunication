@@ -1,24 +1,24 @@
 package org.network;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.chart.ChartUtils;
 
-import javax.swing.*;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Graphing {
+    /**
+     * Uses jfreechart to graph the data stored in the arraylist.
+     * @param data - arraylist of data (latency time and throughput operations)
+     * @param title - title of the graph
+     */
     static void graph(ArrayList<Double> data, String title) {
-        XYSeries hashMapXY = new XYSeries("Temp");
+        XYSeries hashMapXY = new XYSeries("Graph of TCP/UDP");
 
         for (int i = 0; i < data.size(); i++) {
             hashMapXY.add(i, data.get(i));

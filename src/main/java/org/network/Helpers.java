@@ -1,7 +1,5 @@
 package org.network;
 
-import java.util.ArrayList;
-
 public class Helpers {
     /**
      * Used as a key for XOR shifting.
@@ -16,12 +14,15 @@ public class Helpers {
      */
     public static int msgSize = 8;
 
+    /**
+     * For UDP, used to store how many times to send a X byte packet.
+     */
     public static int numberOfMessages = 0;
 
     /**
      * The message that will be divided into bytes
      */
-    public static String msg = "initialsinitials notintitals";
+    public static String msg = "TESTDEMONOTUSED";
 
     /**
      * The amount of times the message should be sent.
@@ -30,13 +31,13 @@ public class Helpers {
      */
     public static int iterations = 30;
 
-    public static short test = 0;
-
     /**
-     * Data gathered
+     * Test 1: Measure round-trip latency (RTTs) and how it varies with message size in TCP, by sending and receiving (echoing and validating) messages of size 8, 64, 256, and 512 bytes.
+     * Test 2: Measure throughput (bits per second) and how it varies with message size in TCP, by sending 1MByte of data (with a 8-byte acknowledgment in the reverse direction) using different numbers of messages: 1024 1024Byte messages, vs 2048 512Byte messages, vs 4096 X 256Byte messages.
+     * Test 3: The same as (1), except using UDP.
+     * Test 4: The same as (2), using UDP..
      */
-    private ArrayList<Double> tcpTime = new ArrayList<>();
-    private ArrayList<Double> udpTime = new ArrayList<>();
+    public static short test = 0;
 
     /**
      * Encrypted the message using a XOR sequence.

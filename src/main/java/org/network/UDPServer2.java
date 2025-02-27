@@ -4,13 +4,12 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.concurrent.TimeoutException;
 
+/**
+ * UDP, but without comments for faster interactions.
+ * Used for throughput testing.
+ */
 public class UDPServer2 {
-    static int numHits = 0;
-
     public static void main(String[] args) {
         int maxBufferSize = 512;
         try (DatagramSocket serverSocket = new DatagramSocket(26882)) {
@@ -25,12 +24,10 @@ public class UDPServer2 {
                     byte[] data = packet.getData();
                     String message = new String(Helpers.xorEncode(data, Helpers.key));
                     if (message.length() > 8 && message.substring(message.length() - 8).equals(Client.agreement)) {
-                        numHits++;
+                        DatagramPacket responsePacket = new DatagramPacket(
+                                data, maxBufferSize, packet.getAddress(), packet.getPort());
+                        serverSocket.send(responsePacket);
                     }
-
-                    DatagramPacket responsePacket = new DatagramPacket(
-                            data, maxBufferSize, packet.getAddress(), packet.getPort());
-                    serverSocket.send(responsePacket);
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");
                     break;

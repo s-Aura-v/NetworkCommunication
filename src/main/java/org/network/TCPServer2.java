@@ -35,11 +35,9 @@ public class TCPServer2 {
                             if (message.substring(message.length() - 8).equals(Client.agreement)) {
                                 out.writeInt(byteArray.length);
                                 out.write(byteArray);
-
                             }
 
                             out.flush();
-
                         } catch (EOFException e) {
                             System.out.println("Client disconnected.");
                             break;
