@@ -22,11 +22,9 @@ public class UDPServer {
                     byte[] data = packet.getData();
                     String message = new String(Helpers.xorEncode(data, Helpers.key));
                     System.out.println("Decoded byte array: " + message);
-                    if (message.length() > 8 && message.substring(message.length() - 8).equals(Client.agreement)) {
-                        DatagramPacket responsePacket = new DatagramPacket(
-                                data, maxBufferSize, packet.getAddress(), packet.getPort());
-                        serverSocket.send(responsePacket);
-                    }
+                    DatagramPacket responsePacket = new DatagramPacket(
+                            data, maxBufferSize, packet.getAddress(), packet.getPort());
+                    serverSocket.send(responsePacket);
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");
                     break;

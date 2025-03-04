@@ -29,10 +29,8 @@ public class TCPServer {
 
                             String message = new String(Helpers.xorEncode(byteArray, Helpers.key));
                             System.out.println("Decoded byte array: " + message);
-                            if (message.substring(message.length() - 8).equals(Client.agreement)) {
-                                out.writeInt(byteArray.length);
-                                out.write(byteArray);
-                            }
+                            out.writeInt(byteArray.length);
+                            out.write(byteArray);
 
                             out.flush();
 

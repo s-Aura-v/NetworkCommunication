@@ -22,12 +22,13 @@ public class UDPServer2 {
 
                     maxBufferSize = packet.getLength();
                     byte[] data = packet.getData();
-                    String message = new String(Helpers.xorEncode(data, Helpers.key));
-                    if (message.length() > 8 && message.substring(message.length() - 8).equals(Client.agreement)) {
+                    // STRING CONVERSION IS THE CAUSE OF SLOW INTERACTION.
+//                    String message = new String(Helpers.xorEncode(data, Helpers.key));
+//                    if (message.length() > 8 && message.substring(message.length() - 8).equals(Client.agreement)) {
                         DatagramPacket responsePacket = new DatagramPacket(
                                 data, maxBufferSize, packet.getAddress(), packet.getPort());
                         serverSocket.send(responsePacket);
-                    }
+//                    }
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");
                     break;

@@ -13,7 +13,7 @@ public class Client {
      * Host: server url
      * Port: port where the networking occurs
      */
-    static String host = "gee.cs.oswego.edu";
+    static String host = "moxie.cs.oswego.edu";
     static int echoServicePortNumber = 26880;
     static int udpServicePortNumber = 26881;
     static String agreement = "13610152"; // Triangular Numbers
@@ -215,9 +215,9 @@ public class Client {
         try (DatagramSocket socket = new DatagramSocket(udpServicePortNumber)) {
             InetAddress address = InetAddress.getByName(host);
             for (int i = 0; i < encryptedPackets.size(); i++) {
-                long sendTime = System.nanoTime();
                 DatagramPacket packet = new DatagramPacket(encryptedPackets.get(i), encryptedPackets.get(i).length, address, 26882);
                 socket.send(packet);
+                long sendTime = System.nanoTime();
 
                 // Receive the response from the server
                 byte[] buffer = new byte[Helpers.msgSize];

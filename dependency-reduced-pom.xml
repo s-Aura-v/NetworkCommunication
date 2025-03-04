@@ -84,6 +84,21 @@
               </transformers>
             </configuration>
           </execution>
+          <execution>
+            <id>TCP2</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>TCP2</finalName>
+              <transformers>
+                <transformer>
+                  <mainClass>org.network.TCPServer2</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>

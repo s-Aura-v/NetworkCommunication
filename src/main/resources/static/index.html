@@ -46,227 +46,301 @@
             align-content: center;
         }
 
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            float: left;
+        }
+
+        .navbar li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .navbar li a:hover {
+            background-color: #575757;
+        }
+
+        .active {
+            background-color: #575757;
+        }
+
         .data-columns {
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
     </style>
 </head>
 <body>
 <div class="div">
-    <h1 class="center">
-        Latency
-    </h1>
-    <div class="centered">
-        <figure>
-            <img src="[8]TCPLatencyBenchmark.png"/>
-            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="[8]UDPLatencyBenchmark.png"/>
-            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
-
-        </figure>
-    </div>
-    <div class="centered">
-        <figure>
-            <img src="[64]TCPLatencyBenchmark.png"/>
-            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="[64]UDPLatencyBenchmark.png"/>
-            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
-        </figure>
+    <div class="navbar">
+        <ul>
+            <li><a href="javascript:void(0)" class="tab-link active" data-tab="local-to-gee">Local To Gee</a></li>
+            <li><a href="javascript:void(0)" class="tab-link" data-tab="local-to-moxie">Local To Moxie</a></li>
+            <li><a href="javascript:void(0)" class="tab-link" data-tab="moxie-to-gee">Moxie To Gee</a></li>
+        </ul>
     </div>
 
-    <div class="centered">
-        <figure>
-            <img src="[256]TCPLatencyBenchmark.png"/>
-            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+    <div id="local-to-gee" class="tab-content active">
+        <h1 class="center">Latency</h1>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-gee/[8]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/[8]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-gee/[64]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/[64]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-gee/[256]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/[256]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-gee/[512]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/[512]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+            </figure>
+        </div>
 
-        </figure>
-        <figure>
-            <img src="[256]UDPLatencyBenchmark.png"/>
-            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
-
-        </figure>
+        <h1 class="center">Throughput</h1>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-gee/[1024]UDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. <br/>  Sent 1024 iterations of size 1024 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/%5B4096%5DUDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. <br/> Sent 2048 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/%5B2048%5DUDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. <br/> Sent 4096 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-gee/[1024]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. <br/> Sent 1024 iterations of size 1024 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/[2048]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. <br/> Sent 2048 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-gee/[4096]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. <br/> Sent 4096 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
     </div>
-    <div class="centered">
-        <figure>
-            <img src="[512]TCPLatencyBenchmark.png"/>
-            <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="[512]UDPLatencyBenchmark.png"/>
-            <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
-        </figure>
+
+    <!-- Local to Moxie -->
+    <div id="local-to-moxie" class="tab-content">
+        <h1 class="center">Latency</h1>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-moxie/[8]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/[8]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-moxie/[64]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/[64]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-moxie/[256]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/[256]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-moxie/[512]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/[512]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+            </figure>
+        </div>
+
+        <h1 class="center">Throughput</h1>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-moxie/[1024]UDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. Sent 1024 iterations of size 1024 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/%5B4096%5DUDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. Sent 2048 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/%5B2048%5DUDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. Sent 4096 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/local-moxie/[1024]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. Sent 1024 iterations of size 1024 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/[2048]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. Sent 2048 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/local-moxie/[4096]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. Sent 4096 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
     </div>
 
-    <h1 class="center">
-        Throughput
-    </h1>
-    <div class="centered">
-        <figure>
-            <img src="[1024]UDPThroughputBenchmark.png"/>
-            <figcaption>UDP Throughput Benchmark. <br/>  Sent 1024 iterations of size 1024 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="%5B4096%5DUDPThroughputBenchmark.png"/>
-            <figcaption>UDP Throughput Benchmark. <br/> Sent 2048 iterations of size 512 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="%5B2048%5DUDPThroughputBenchmark.png"/>
-            <figcaption>UDP Throughput Benchmark. <br/> Sent 4096 iterations of size 256 byte packet.</figcaption>
-        </figure>
+    <!-- Moxie to Gee -->
+    <div id="moxie-to-gee" class="tab-content">
+        <h1 class="center">Latency</h1>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/moxie-gee/[8]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/[8]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 8 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/moxie-gee/[64]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/[64]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 64 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/moxie-gee/[256]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/[256]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/moxie-gee/[512]TCPLatencyBenchmark.png"/>
+                <figcaption>TCP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/[512]UDPLatencyBenchmark.png"/>
+                <figcaption>UDP Latency Benchmark. Sent 30 iterations of size 512 byte packet.</figcaption>
+            </figure>
+        </div>
+
+        <h1 class="center">Throughput</h1>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/moxie-gee/[1024]UDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. Sent 1024 iterations of size 1024 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/%5B4096%5DUDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. Sent 2048 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/%5B2048%5DUDPThroughputBenchmark.png"/>
+                <figcaption>UDP Throughput Benchmark. Sent 4096 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
+        <div class="centered">
+            <figure>
+                <img src="backup/backup/moxie-gee/[1024]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. Sent 1024 iterations of size 1024 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/[2048]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. Sent 2048 iterations of size 512 byte packet.</figcaption>
+            </figure>
+            <figure>
+                <img src="backup/backup/moxie-gee/[4096]TCPThroughputBenchmark.png"/>
+                <figcaption>TCP Throughput Benchmark. Sent 4096 iterations of size 256 byte packet.</figcaption>
+            </figure>
+        </div>
     </div>
-    <div class="centered">
-        <figure>
-            <img src="[1024]TCPThroughputBenchmark.png"/>
-            <figcaption>TCP Throughput Benchmark. <br/> Sent 1024 iterations of size 1024 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="[2048]TCPThroughputBenchmark.png"/>
-            <figcaption>TCP Throughput Benchmark. <br/> Sent 2048 iterations of size 512 byte packet.</figcaption>
-        </figure>
-        <figure>
-            <img src="[4096]TCPThroughputBenchmark.png"/>
-            <figcaption>TCP Throughput Benchmark. <br/> Sent 4096 iterations of size 256 byte packet.</figcaption>
-        </figure>
-    </div>
-
-    <h1 class="center">
-        Data Analysis
-    </h1>
-    <!--
-    <table>
-        <tr>
-            <td>
-
-            </td>
-            <td>
-                TCP-8
-            </td>
-            <td>
-                UDP-8
-            </td>
-            <td>
-                TCP-64
-            </td>
-            <td>
-                UDP-64
-            </td>
-            <td>
-                TCP-256
-            </td>
-            <td>
-                UDP-256
-            </td>
-            <td>
-                TCP-512
-            </td>
-            <td>
-                UDP-512
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Mean
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Packets Missed
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Fastest Time
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Slowest Time
-            </td>
-        </tr>
-        <tr>
-
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <td>
-
-            </td>
-            <td>
-                TCP <br/>
-                1024 by 1024 bytes
-            </td>
-            <td>
-                UDP <br/>
-                1024 by 1024 bytes
-            </td>
-            <td>
-                TCP <br/>
-                2048 by 512 bytes
-            </td>
-            <td>
-                UDP <br/>
-                2048 by 512 bytes
-            </td>
-            <td>
-                TCP <br/>
-                4096 by 256 bytes
-            </td>
-            <td>
-                UDP <br/>
-                4096 by 256 bytes
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Mean
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-            <td>
-
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Packets Missed
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Fastest Time
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Slowest Time
-            </td>
-        </tr>
-        <tr>
-
-        </tr>
-    </table>
-    -->
-
 
 </div>
 
+<script>
+    const tabs = document.querySelectorAll('.tab-link');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            const target = tab.getAttribute('data-tab');
+            document.getElementById(target).classList.add('active');
+        });
+    });
+</script>
 </body>
 </html>
