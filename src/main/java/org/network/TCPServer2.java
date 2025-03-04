@@ -32,7 +32,7 @@ public class TCPServer2 {
 
                             byte[] byteArray = new byte[length];
                             in.readFully(byteArray);
-                            String msg = new String(byteArray);
+//                            String msg = new String(byteArray);
                             if (checkLast8Bytes(byteArray, Client.agreementBytes)) {
                                 out.writeInt(byteArray.length);
                                 out.write(byteArray);

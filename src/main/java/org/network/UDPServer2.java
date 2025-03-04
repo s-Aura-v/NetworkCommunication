@@ -29,7 +29,7 @@ public class UDPServer2 {
 
                     maxBufferSize = packet.getLength();
                     byte[] data = packet.getData();
-                    String msg = new String(data);
+//                    String msg = new String(data);
                     if (checkLast8Bytes(data, Client.agreementBytes)) {
                         DatagramPacket responsePacket = new DatagramPacket(
                                 data, maxBufferSize, packet.getAddress(), packet.getPort());

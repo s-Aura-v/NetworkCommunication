@@ -10,6 +10,8 @@ import org.jfree.chart.ChartUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Graphing {
     /**
@@ -18,13 +20,13 @@ public class Graphing {
      * @param title - title of the graph
      */
     static void graph(ArrayList<Double> data, String title) {
-        XYSeries hashMapXY = new XYSeries("Graph of TCP/UDP");
+        XYSeries xymap = new XYSeries("Graph of TCP/UDP");
 
         for (int i = 0; i < data.size(); i++) {
-            hashMapXY.add(i, data.get(i));
+            xymap.add(i, data.get(i));
         }
 
-        XYSeriesCollection solutionsXY = new XYSeriesCollection(hashMapXY);
+        XYSeriesCollection solutionsXY = new XYSeriesCollection(xymap);
         JFreeChart hashMapLineChart = ChartFactory.createXYLineChart(
                 title,
                 "Iteration",
@@ -43,4 +45,6 @@ public class Graphing {
             System.err.println("Error saving chart: " + e.getMessage());
         }
     }
+
+
 }

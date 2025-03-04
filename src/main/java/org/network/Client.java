@@ -13,7 +13,7 @@ public class Client {
      * Host: server url
      * Port: port where the networking occurs
      */
-    static String host = "localhost";
+    static String host = "moxie.cs.oswego.edu";
     static int echoServicePortNumber = 26880;
     static int udpServicePortNumber = 26881;
     static String agreement = "13610152"; // Triangular Numbers
@@ -89,13 +89,6 @@ public class Client {
             packets.add(Helpers.msg.substring(stringIndex, stringIndex + Helpers.msgSize));
             stringIndex += Helpers.msgSize;
         }
-
-//        if (Helpers.test == 2 || Helpers.test == 4) {
-//            for (int i = 0; i < packets.size(); i++) {
-//                String eightByteAgreementMessage = packets.get(i) + agreement;
-//                packets.set(i, eightByteAgreementMessage);
-//            }
-//        }
 
         for (String s : packets) {
             encryptedPackets.add(Helpers.xorEncode(s.getBytes(), Helpers.key));
@@ -198,9 +191,9 @@ public class Client {
                     in.readFully(byteArray);
                 }
                 long receiveTime = System.nanoTime();
-                double diffInSeconds = (receiveTime - sendTime) * 1e-9;
-
-                tcpThroughputData.add(Helpers.iterations / diffInSeconds);
+                double diffInSeconds = (receiveTime - sendTime)  * 1e-9;
+                double throughput = (Helpers.msgSize * Byte.SIZE) / (diffInSeconds);
+                tcpThroughputData.add(throughput);
                 System.out.println("All " + Helpers.numberOfMessages + " packets sent and received in " + diffInSeconds +
                         " seconds with a throughput of " + Helpers.iterations / diffInSeconds + " op/s");
             }
@@ -288,6 +281,7 @@ public class Client {
                     long receiveTime = System.nanoTime();
                     double diffInSeconds = (receiveTime - sendTime) * 1e-9;
                     double throughput = (Helpers.msgSize * Byte.SIZE) / (diffInSeconds);
+
                     udpThroughputData.add(throughput);
                     System.out.println("All " + Helpers.numberOfMessages + " packets sent and received in " + diffInSeconds +
                             " seconds with a throughput of " + throughput + " op/s");
