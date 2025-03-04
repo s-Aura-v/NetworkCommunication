@@ -4,6 +4,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.util.Scanner;
 
 import static org.network.Helpers.checkLast8Bytes;
 
@@ -13,7 +14,11 @@ import static org.network.Helpers.checkLast8Bytes;
  */
 public class UDPServer2 {
     public static void main(String[] args) {
-        int maxBufferSize = 512;
+        System.out.println("Enter size:");
+        Scanner scanner = new Scanner(System.in);
+        int maxBufferSize = scanner.nextInt() + 8;
+        scanner.close();
+
         try (DatagramSocket serverSocket = new DatagramSocket(26882)) {
             System.out.println("Datagram listening...?");
 
@@ -24,10 +29,12 @@ public class UDPServer2 {
 
                     maxBufferSize = packet.getLength();
                     byte[] data = packet.getData();
-                    DatagramPacket responsePacket = new DatagramPacket(
-                            data, maxBufferSize, packet.getAddress(), packet.getPort());
-                    serverSocket.send(responsePacket);
-
+                    String msg = new String(data);
+                    if (checkLast8Bytes(data, Client.agreementBytes)) {
+                        DatagramPacket responsePacket = new DatagramPacket(
+                                data, maxBufferSize, packet.getAddress(), packet.getPort());
+                        serverSocket.send(responsePacket);
+                    }
 
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");

@@ -17,7 +17,7 @@ public class Client {
     static int echoServicePortNumber = 26880;
     static int udpServicePortNumber = 26881;
     static String agreement = "13610152"; // Triangular Numbers
-    static byte[] agreementBytes = new byte[8];
+    static byte[] agreementBytes = new byte[]{1,3,6,1,0,1,5,2};
 
     /**
      * Data that is being sent to the server.
@@ -63,7 +63,6 @@ public class Client {
                 Helpers.test = 3;
             }
         } else {
-            System.out.println(Arrays.toString(Helpers.xorEncode(agreement.getBytes(), Helpers.key)));
             char[] megabyteString = new char[1048576];
             Arrays.fill(megabyteString, 's');
             Helpers.msg = new String(megabyteString);
@@ -91,18 +90,27 @@ public class Client {
             stringIndex += Helpers.msgSize;
         }
 
-        if (Helpers.test == 2 || Helpers.test == 4) {
-            for (int i = 0; i < packets.size(); i++) {
-                String eightByteAgreementMessage = packets.get(i) + agreement;
-                packets.set(i, eightByteAgreementMessage);
-            }
-        }
+//        if (Helpers.test == 2 || Helpers.test == 4) {
+//            for (int i = 0; i < packets.size(); i++) {
+//                String eightByteAgreementMessage = packets.get(i) + agreement;
+//                packets.set(i, eightByteAgreementMessage);
+//            }
+//        }
 
         for (String s : packets) {
             encryptedPackets.add(Helpers.xorEncode(s.getBytes(), Helpers.key));
         }
-        System.arraycopy(encryptedPackets.getFirst(), encryptedPackets.getFirst().length - 8, agreementBytes, 0, 8);
 
+        if (Helpers.test == 2 || Helpers.test == 4) {
+            for (int i = 0; i < encryptedPackets.size(); i++) {
+                byte[] encryptedPacket = encryptedPackets.get(i);
+                byte[] newPacket = new byte[encryptedPacket.length + agreementBytes.length];
+
+                System.arraycopy(encryptedPacket, 0, newPacket, 0, encryptedPacket.length);
+                System.arraycopy(agreementBytes, 0, newPacket, encryptedPacket.length, agreementBytes.length);
+                encryptedPackets.set(i, newPacket);
+            }
+        }
 
         System.out.println(packets);
         printPackets(encryptedPackets);

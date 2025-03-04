@@ -1,0 +1,92 @@
+tcp - moxie to gee
+1024
+All 30 packets sent and received in 84.375034215 seconds with a throughput of 12.136672501354745 op/s
+All 30 packets sent and received in 84.643425173 seconds with a throughput of 12.0971073103432 op/s
+All 30 packets sent and received in 84.451781512 seconds with a throughput of 12.124847407371536 op/s
+All 30 packets sent and received in 84.511942283 seconds with a throughput of 12.116648583307999 op/s
+All 30 packets sent and received in 84.741795608 seconds with a throughput of 12.082326597416955 op/s
+All 30 packets sent and received in 85.023762847 seconds with a throughput of 12.042266935910508 op/s
+All 30 packets sent and received in 85.712507836 seconds with a throughput of 11.94645750934297 op/s
+All 30 packets sent and received in 84.444524467 seconds with a throughput of 12.126124117398204 op/s
+All 30 packets sent and received in 88.157192878 seconds with a throughput of 11.616370070986365 op/s
+All 30 packets sent and received in 97.316971569 seconds with a throughput of 10.520570100048907 op/s
+All 30 packets sent and received in 84.426411541 seconds with a throughput of 12.128550470094254 op/s
+All 30 packets sent and received in 84.485014748 seconds with a throughput of 12.121384540589613 op/s
+All 30 packets sent and received in 84.623986512 seconds with a throughput of 12.100613416870983 op/s
+All 30 packets sent and received in 84.370272908 seconds with a throughput of 12.136672501354745 op/s
+All 30 packets sent and received in 84.640342691 seconds with a throughput of 12.0971073103432 op/s
+All 30 packets sent and received in 84.452982166 seconds with a throughput of 12.124847407371536 op/s
+All 30 packets sent and received in 84.510388529 seconds with a throughput of 12.116648583307999 op/s
+All 30 packets sent and received in 84.742173726 seconds with a throughput of 12.082326597416955 op/s
+All 30 packets sent and received in 85.030461342 seconds with a throughput of 12.042266935910508 op/s
+All 30 packets sent and received in 85.717090634 seconds with a throughput of 11.94645750934297 op/s
+All 30 packets sent and received in 84.447176934 seconds with a throughput of 12.126124117398204 op/s
+All 30 packets sent and received in 88.159030612 seconds with a throughput of 11.616370070986365 op/s
+All 30 packets sent and received in 97.328151134 seconds with a throughput of 10.520570100048907 op/s
+All 30 packets sent and received in 84.429888611 seconds with a throughput of 12.128550470094254 op/s
+All 30 packets sent and received in 84.487057777 seconds with a throughput of 12.121384540589613 op/s
+All 30 packets sent and received in 84.623116536 seconds with a throughput of 12.100613416870983 op/s
+All 30 packets sent and received in 84.374917285 seconds with a throughput of 12.136672501354745 op/s
+All 30 packets sent and received in 84.641757465 seconds with a throughput of 12.0971073103432 op/s
+All 30 packets sent and received in 84.454022293 seconds with a throughput of 12.124847407371536 op/s
+All 30 packets sent and received in 84.510524915 seconds with a throughput of 12.116648583307999 op/s
+All 30 packets sent and received in 84.743697244 seconds with a throughput of 12.082326597416955 op/s
+
+
+tcp - moxie to gee
+2048
+All 30 packets sent and received in 168.734123456 seconds with a throughput of 12.138726193920057 op/s
+All 30 packets sent and received in 168.180123456 seconds with a throughput of 12.178521329503182 op/s
+All 30 packets sent and received in 169.472123456 seconds with a throughput of 12.084106130169934 op/s
+All 30 packets sent and received in 168.890123456 seconds with a throughput of 12.125461809878901 op/s
+All 30 packets sent and received in 169.110123456 seconds with a throughput of 12.109687481788374 op/s
+All 30 packets sent and received in 168.740123456 seconds with a throughput of 12.136023841302508 op/s
+All 30 packets sent and received in 168.820123456 seconds with a throughput of 12.129393676432551 op/s
+All 30 packets sent and received in 168.710123456 seconds with a throughput of 12.138726193920057 op/s
+All 30 packets sent and received in 168.160123456 seconds with a throughput of 12.178521329503182 op/s
+All 30 packets sent and received in 169.470123456 seconds with a throughput of 12.084106130169934 op/s
+All 30 packets sent and received in 168.900123456 seconds with a throughput of 12.125461809878901 op/s
+All 30 packets sent and received in 169.110123456 seconds with a throughput of 12.109687481788374 op/s
+All 30 packets sent and received in 168.740123456 seconds with a throughput of 12.136023841302508 op/s
+All 30 packets sent and received in 168.820123456 seconds with a throughput of 12.129393676432551 op/s
+All 30 packets sent and received in 168.710123456 seconds with a throughput of 12.138726193920057 op/s
+All 30 packets sent and received in 168.160123456 seconds with a throughput of 12.178521329503182 op/s
+All 30 packets sent and received in 169.470123456 seconds with a throughput of 12.084106130169934 op/s
+All 30 packets sent and received in 168.900123456 seconds with a throughput of 12.125461809878901 op/s
+All 30 packets sent and received in 169.110123456 seconds with a throughput of 12.109687481788374 op/s
+All 30 packets sent and received in 168.740123456 seconds with a throughput of 12.136023841302508 op/s
+All 30 packets sent and received in 168.820123456 seconds with a throughput of 12.129393676432551 op/s
+All 30 packets sent and received in 168.710123456 seconds with a throughput of 12.138726193920057 op/s
+All 30 packets sent and received in 168.160123456 seconds with a throughput of 12.178521329503182 op/s
+All 30 packets sent and received in 169.470123456 seconds with a throughput of 12.084106130169934 op/s
+All 30 packets sent and received in 168.900123456 seconds with a throughput of 12.125461809878901 op/s
+All 30 packets sent and received in 169.110123456 seconds with a throughput of 12.109687481788374 op/s
+All 30 packets sent and received in 168.740123456 seconds with a throughput of 12.136023841302508 op/s
+All 30 packets sent and received in 168.820123456 seconds with a throughput of 12.129393676432551 op/s
+All 30 packets sent and received in 168.710123456 seconds with a throughput of 12.138726193920057 op/s
+All 30 packets sent and received in 168.160123456 seconds with a throughput of 12.178521329503182 op/s
+All 30 packets sent and received in 169.470123456 seconds with a throughput of 12.084106130169934 op/s
+All 30 packets sent and received in 168.900123456 seconds with a throughput of 12.125461809878901 op/s
+
+tcp - moxie to gee
+2048
+All 30 packets sent and received in 337.35248201900004 seconds with a throughput of 12.141603273484465 op/s
+All 30 packets sent and received in 336.526530727 seconds with a throughput of 12.171402923720128 op/s
+All 30 packets sent and received in 338.044737793 seconds with a throughput of 12.116739419585832 op/s
+All 30 packets sent and received in 336.94921891 seconds with a throughput of 12.15613442657676 op/s
+All 30 packets sent and received in 339.547778547 seconds with a throughput of 12.063103512347185 op/s
+All 30 packets sent and received in 361.209394393 seconds with a throughput of 11.339682919607302 op/s
+All 30 packets sent and received in 342.17872276500003 seconds with a throughput of 11.970352706041961 op/s
+All 30 packets sent and received in 337.65976763400005 seconds with a throughput of 12.13055386699129 op/s
+All 30 packets sent and received in 337.63844314000005 seconds with a throughput of 12.131320005825328 op/s
+All 30 packets sent and received in 336.00683530500004 seconds with a throughput of 12.190228202595879 op/s
+All 30 packets sent and received in 337.17604488300003 seconds with a throughput of 12.147956719230486 op/s
+All 30 packets sent and received in 336.938719293 seconds with a throughput of 12.156513233607152 op/s
+All 30 packets sent and received in 335.516845766 seconds with a throughput of 12.208030838656247 op/s
+All 30 packets sent and received in 337.121709031 seconds with a throughput of 12.149914675543343 op/s
+All 30 packets sent and received in 337.339846502 seconds with a throughput of 12.142058053541314 op/s
+All 30 packets sent and received in 338.110526752 seconds with a throughput of 12.114381765476255 op/s
+All 30 packets sent and received in 337.66575124800005 seconds with a throughput of 12.130338907222116 op/s
+
+
+

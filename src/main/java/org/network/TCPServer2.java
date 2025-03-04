@@ -32,9 +32,11 @@ public class TCPServer2 {
 
                             byte[] byteArray = new byte[length];
                             in.readFully(byteArray);
-                            out.writeInt(byteArray.length);
-                            out.write(byteArray);
-
+                            String msg = new String(byteArray);
+                            if (checkLast8Bytes(byteArray, Client.agreementBytes)) {
+                                out.writeInt(byteArray.length);
+                                out.write(byteArray);
+                            }
 
                             out.flush();
                         } catch (EOFException e) {
