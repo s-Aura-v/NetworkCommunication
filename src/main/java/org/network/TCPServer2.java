@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static org.network.Helpers.checkLast8Bytes;
+
 /**
  * Receives data from client and decodes it, before sending it back to client.
  */
@@ -30,12 +32,9 @@ public class TCPServer2 {
 
                             byte[] byteArray = new byte[length];
                             in.readFully(byteArray);
+                            out.writeInt(byteArray.length);
+                            out.write(byteArray);
 
-                            String message = new String(Helpers.xorEncode(byteArray, Helpers.key));
-                            if (message.substring(message.length() - 8).equals(Client.agreement)) {
-                                out.writeInt(byteArray.length);
-                                out.write(byteArray);
-                            }
 
                             out.flush();
                         } catch (EOFException e) {
@@ -63,4 +62,6 @@ public class TCPServer2 {
             System.exit(-1);
         }
     }
+
+
 }

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
+import static org.network.Helpers.checkLast8Bytes;
+
 /**
  * UDP, but without comments for faster interactions.
  * Used for throughput testing.
@@ -22,13 +24,11 @@ public class UDPServer2 {
 
                     maxBufferSize = packet.getLength();
                     byte[] data = packet.getData();
-                    // STRING CONVERSION IS THE CAUSE OF SLOW INTERACTION.
-//                    String message = new String(Helpers.xorEncode(data, Helpers.key));
-//                    if (message.length() > 8 && message.substring(message.length() - 8).equals(Client.agreement)) {
-                        DatagramPacket responsePacket = new DatagramPacket(
-                                data, maxBufferSize, packet.getAddress(), packet.getPort());
-                        serverSocket.send(responsePacket);
-//                    }
+                    DatagramPacket responsePacket = new DatagramPacket(
+                            data, maxBufferSize, packet.getAddress(), packet.getPort());
+                    serverSocket.send(responsePacket);
+
+
                 } catch (EOFException e) {
                     System.out.println("Client disconnected.");
                     break;

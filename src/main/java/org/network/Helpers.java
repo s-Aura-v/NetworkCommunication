@@ -53,6 +53,25 @@ public class Helpers {
         return encrypted;
     }
 
+    public static boolean checkLast8Bytes(byte[] inputArray, byte[] comparisonArray) {
+        if (inputArray == null || comparisonArray == null) {
+            throw new IllegalArgumentException("Input arrays cannot be null.");
+        }
+        if (comparisonArray.length != 8) {
+            throw new IllegalArgumentException("Comparison array must be exactly 8 bytes long.");
+        }
+        if (inputArray.length < 8) {
+            throw new IllegalArgumentException("Input array must be at least 8 bytes long.");
+        }
+
+        for (int i = 0; i < 8; i++) {
+            if (inputArray[inputArray.length - 8 + i] != comparisonArray[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Changes the initial key for encoding and decoding purposes
      * @param r - initial key
@@ -64,5 +83,7 @@ public class Helpers {
         r ^= r << 17;
         return r;
     }
+
+
 }
 
