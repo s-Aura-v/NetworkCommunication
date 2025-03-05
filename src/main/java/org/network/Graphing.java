@@ -30,7 +30,7 @@ public class Graphing {
         JFreeChart hashMapLineChart = ChartFactory.createXYLineChart(
                 title,
                 "Iteration",
-                "Millisecond/Operation",
+                "Mb/s",
                 solutionsXY,
                 PlotOrientation.VERTICAL,
                 true,
